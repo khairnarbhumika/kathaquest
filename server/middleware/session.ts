@@ -51,7 +51,7 @@ export async function sessionMiddleware(req: Request, res: Response, next: NextF
         `INSERT INTO player_sessions (token_hash, expires_at) VALUES ($1, $2) RETURNING id`,
         [tokenHash, expiresAt.toISOString()]
       );
-      sessionId = newSessionRes.rows[0].id;
+      sessionId = String(newSessionRes.rows[0].id);
 
       // Initialize player_stats
       await query(
